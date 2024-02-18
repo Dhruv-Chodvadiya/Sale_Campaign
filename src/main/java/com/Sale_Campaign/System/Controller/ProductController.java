@@ -24,5 +24,4 @@ public class ProductController {
         return productService.get(page,pageSize);
     }
 
-
 }
