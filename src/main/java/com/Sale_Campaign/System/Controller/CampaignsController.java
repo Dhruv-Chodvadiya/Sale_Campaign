@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.Sale_Campaign.System.Model.DTO.CompaignsDTO;
 import com.Sale_Campaign.System.Model.Campaigns;
 
 import java.text.ParseException;
@@ -15,8 +16,8 @@ public class CampaignsController {
     @Autowired
     CampaignsService campaignsService;
 
-//    @PostMapping("/campaign")
-//    public Campaigns campaigns(@RequestBody CompaignsDTO campaigns) throws ParseException {
-//        return campaignsService.createCampaigns(campaigns);
-//    }
+    @PostMapping("/campaign")
+    public Campaigns campaigns(@RequestBody CompaignsDTO campaigns) throws ParseException {
+        return campaignsService.createCampaigns(campaigns);
+    }
 }
