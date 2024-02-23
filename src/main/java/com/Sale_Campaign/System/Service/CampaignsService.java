@@ -90,7 +90,7 @@ public class CampaignsService {
                 }
                 if (current.isAfter(endDate) && current.isAfter(startDate)) {
                     campaigns1.setStatus("Past");
-                }else {
+                }else if(current.isBefore(startDate)){
                     campaigns1.setStatus("UpComing");
                 }
 
@@ -101,7 +101,7 @@ public class CampaignsService {
         }
         return campaigns1;
     }
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Scheduled(fixedRate = 86400000)
     public void scheduledMethod() {
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
