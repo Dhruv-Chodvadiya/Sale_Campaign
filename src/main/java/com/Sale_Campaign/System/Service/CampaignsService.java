@@ -107,12 +107,13 @@ public class CampaignsService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = sdf.format(currentDate);
 
-        List<Campaigns> activeCampaigns = campaignsRepo.findActiveCampaigns(formattedDate);
+        List<Campaigns> activeCampaigns = campaignsRepo.findByStartDate(LocalDate.parse(formattedDate));
+
         if(!activeCampaigns.isEmpty()){
             startCampaign(activeCampaigns);
         }
 
-        List<Campaigns> endCampaigns = campaignsRepo.findEndCampaigns(formattedDate);
+        List<Campaigns> endCampaigns = campaignsRepo.findByEndDate(LocalDate.parse(formattedDate));
         if(!endCampaigns.isEmpty()){
             endCampaign(endCampaigns);
         }

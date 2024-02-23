@@ -5,13 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface CampaignsRepo extends JpaRepository<Campaigns,Long> {
-    @Query(value = "select * from campaigns where startDate=:currentDate ",nativeQuery = true)
-    List<Campaigns> findActiveCampaigns(String currentDate);
+//    @Query(value = "select * from campaigns where startDate=:currentDate")
+//    List<Campaigns> findActiveCampaigns(String currentDate);
+    List<Campaigns> findByStartDate(LocalDate startDate);
 
-    @Query(value = "select * from campaigns where endDate=:formattedDate ",nativeQuery = true)
-    List<Campaigns> findEndCampaigns(String formattedDate);
+//    @Query(value = "select * from campaigns where endDate=:formattedDate")
+//    List<Campaigns> findEndCampaigns(String formattedDate);
+    List<Campaigns> findByEndDate(LocalDate endDate);
 }
