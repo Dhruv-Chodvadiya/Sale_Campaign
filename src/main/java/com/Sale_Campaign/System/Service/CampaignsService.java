@@ -9,10 +9,13 @@ import com.Sale_Campaign.System.Repo.PriceHistoryRepo;
 import com.Sale_Campaign.System.Repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,5 +100,66 @@ public class CampaignsService {
             }
         }
         return campaigns1;
+    }
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    public void scheduledMethod() {
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(currentDate);
+
+        List<Campaigns> activeCampaigns = campaignsRepo.findActiveCampaigns(formattedDate);
+        if(!activeCampaigns.isEmpty()){
+            startCampaign(activeCampaigns);
+        }
+
+        List<Campaigns> endCampaigns = campaignsRepo.findEndCampaigns(formattedDate);
+        if(!endCampaigns.isEmpty()){
+            endCampaign(endCampaigns);
+        }
+    }
+
+    public void startCampaign(List<Campaigns> activeCampaigns){
+        for(Campaigns campaign : activeCampaigns){
+            Optional<Product> product = productRepo.findById(campaign.getProductId());
+            Product product1 = product.get();
+
+            Double newPrice = product1.getCurrentPrice() - (product1.getCurrentPrice()*campaign.getDiscount()/100);
+            product1.setDiscount(100-(newPrice*100/product1.getMrp()));
+
+            PriceHistory priceHistory= new PriceHistory();
+            priceHistory.setProductId(product1.getId());
+            priceHistory.setPrice(product1.getCurrentPrice());
+            priceHistory.setNewPrice(newPrice);
+
+            product1.setCurrentPrice(newPrice);
+
+            campaign.setStatus("Current");
+
+            campaignsRepo.save(campaign);
+            priceHistoryRepo.save(priceHistory);
+            productRepo.save(product1);
+        }
+    }
+    public  void endCampaign(List<Campaigns> endCampaigns){
+        for(Campaigns campaign : endCampaigns){
+            Optional<Product> product = productRepo.findById(campaign.getProductId());
+            Product product1 = product.get();
+
+            Double newPrice = (product1.getCurrentPrice()*100) / (100- campaign.getDiscount());
+            product1.setDiscount(100-(newPrice*100/product1.getMrp()));
+
+            PriceHistory priceHistory= new PriceHistory();
+            priceHistory.setProductId(product1.getId());
+            priceHistory.setPrice(product1.getCurrentPrice());
+            priceHistory.setNewPrice(newPrice);
+
+            product1.setCurrentPrice(newPrice);
+
+            campaign.setStatus("Past");
+
+            campaignsRepo.save(campaign);
+            priceHistoryRepo.save(priceHistory);
+            productRepo.save(product1);
+        }
     }
 }
