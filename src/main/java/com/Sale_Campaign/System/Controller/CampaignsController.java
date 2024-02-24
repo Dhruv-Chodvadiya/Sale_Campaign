@@ -1,6 +1,7 @@
 package com.Sale_Campaign.System.Controller;
 import com.Sale_Campaign.System.Service.CampaignsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import com.Sale_Campaign.System.Model.DTO.CompaignsDTO;
 import com.Sale_Campaign.System.Model.Campaigns;
 
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping("CreateCampaign")
@@ -22,8 +24,8 @@ public class CampaignsController {
     }
 
     @PostMapping("startAndEndCampaign")
-    public Campaigns campaigns(){
-        campaignsService.scheduledMethod();
+    public List<Campaigns> campaigns(){
+//        return campaignsService.scheduledMethod();
         return null;
     }
 }
