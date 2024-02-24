@@ -101,7 +101,8 @@ public class CampaignsService {
         }
         return campaigns1;
     }
-    @Scheduled(fixedRate = 86400000)
+//    @Scheduled(fixedRate = 86400000)
+
     public void scheduledMethod() {
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

@@ -20,4 +20,6 @@ public class CampaignsController {
     public Campaigns campaigns(@RequestBody CompaignsDTO campaigns) throws ParseException {
         return campaignsService.createCampaigns(campaigns);
     }
+
+
 }
