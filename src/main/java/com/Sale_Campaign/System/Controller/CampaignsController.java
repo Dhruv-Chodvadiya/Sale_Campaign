@@ -21,5 +21,9 @@ public class CampaignsController {
         return campaignsService.createCampaigns(campaigns);
     }
 
-
+    @PostMapping("startAndEndCampaign")
+    public Campaigns campaigns(){
+        campaignsService.scheduledMethod();
+        return null;
+    }
 }
