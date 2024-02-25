@@ -142,7 +142,6 @@ public class CampaignsService {
 
             campaign.setStatus("Current");
 
-
             campaignsRepo.save(campaign);
             priceHistoryRepo.save(priceHistory);
             productRepo.save(product1);
