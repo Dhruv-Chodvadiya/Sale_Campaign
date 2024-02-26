@@ -116,7 +116,6 @@ public class CampaignsService {
         if(!activeCampaigns.isEmpty()){
             active = startCampaign(activeCampaigns,formattedDate);
         }
-
 //        List<Campaigns> endCampaigns = campaignsRepo.findByEndDate(LocalDate.parse(formattedDate));
 //        if(!endCampaigns.isEmpty()){
 //            endCampaign(endCampaigns);
