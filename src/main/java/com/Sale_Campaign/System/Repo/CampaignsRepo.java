@@ -13,10 +13,10 @@ import java.util.List;
 @EnableJpaRepositories
 public interface CampaignsRepo extends JpaRepository<Campaigns,Long> {
 
-//    @Query(value = "select * from campaigns where startDate=:currentDate")
-//    default List<Campaigns> findActiveCampaigns(String currentDate) {
-//        return null;
-//    }
+    @Query(value = "select * from campaigns where startDate=:currentDate")
+    default List<Campaigns> findActiveCampaigns(String currentDate) {
+        return null;
+    }
 //    List<Campaigns> findByStartDate(LocalDate startDate);
 
 //    @Query(value = "select * from campaigns where endDate=:formattedDate")

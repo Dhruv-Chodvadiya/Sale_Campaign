@@ -104,69 +104,69 @@ public class CampaignsService {
         return campaigns1;
     }
 //    @Scheduled(fixedRate = 86400000)
-//    public static List<Campaigns> scheduledMethod() {
-//        Date currentDate = new Date();
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String formattedDate = sdf.format(currentDate);
-//
-//        List<Campaigns> activeCampaigns = campaignsRepo.findActiveCampaigns(formattedDate);
-//
-//        List<Campaigns> active = null;
-//
-//        if(!activeCampaigns.isEmpty()){
-//            active = startCampaign(activeCampaigns,formattedDate);
+    public List<Campaigns> scheduledMethod() {
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(currentDate);
+
+        List<Campaigns> activeCampaigns = campaignsRepo.findActiveCampaigns(formattedDate);
+
+        List<Campaigns> active = null;
+
+        if(!activeCampaigns.isEmpty()){
+            active = startCampaign(activeCampaigns,formattedDate);
+        }
+
+//        List<Campaigns> endCampaigns = campaignsRepo.findByEndDate(LocalDate.parse(formattedDate));
+//        if(!endCampaigns.isEmpty()){
+//            endCampaign(endCampaigns);
 //        }
-//
-////        List<Campaigns> endCampaigns = campaignsRepo.findByEndDate(LocalDate.parse(formattedDate));
-////        if(!endCampaigns.isEmpty()){
-////            endCampaign(endCampaigns);
-////        }
-//        return active;
-//    }
-//
-//    public static List<Campaigns> startCampaign(List<Campaigns> activeCampaigns, String formattedDate){
-//        for(Campaigns campaign : activeCampaigns){
-//            Optional<Product> product = productRepo.findById(campaign.getProductId());
-//            Product product1 = product.get();
-//
-//            Double newPrice = product1.getCurrentPrice() - (product1.getCurrentPrice()*campaign.getDiscount()/100);
-//            product1.setDiscount(100-(newPrice*100/product1.getMrp()));
-//
-//            PriceHistory priceHistory= new PriceHistory();
-//            priceHistory.setProductId(product1.getId());
-//            priceHistory.setPrice(product1.getCurrentPrice());
-//            priceHistory.setNewPrice(newPrice);
-//
-//            product1.setCurrentPrice(newPrice);
-//
-//            campaign.setStatus("Current");
-//
-//            campaignsRepo.save(campaign);
-//            priceHistoryRepo.save(priceHistory);
-//            productRepo.save(product1);
-//        }
-//        return campaignsRepo.findActiveCampaigns(formattedDate);
-//    }
-//    public  void endCampaign(List<Campaigns> endCampaigns){
-//        for(Campaigns campaign : endCampaigns){
-//            Optional<Product> product = productRepo.findById(campaign.getProductId());
-//            Product product1 = product.get();
-//
-//            Double newPrice = (product1.getCurrentPrice()*100) / (100- campaign.getDiscount());
-//            product1.setDiscount(100-(newPrice*100/product1.getMrp()));
-//
-//            PriceHistory priceHistory= new PriceHistory();
-//            priceHistory.setProductId(product1.getId());
-//            priceHistory.setPrice(product1.getCurrentPrice());
-//            priceHistory.setNewPrice(newPrice);
-//
-//            product1.setCurrentPrice(newPrice);
-//
-//            campaign.setStatus("Past");
-//
-//            campaignsRepo.save(campaign);
-//            priceHistoryRepo.save(priceHistory);
-//            productRepo.save(product1);
-//        }
-//    }
+        return active;
+    }
+
+    public List<Campaigns> startCampaign(List<Campaigns> activeCampaigns, String formattedDate){
+        for(Campaigns campaign : activeCampaigns){
+            Optional<Product> product = productRepo.findById(campaign.getProductId());
+            Product product1 = product.get();
+
+            Double newPrice = product1.getCurrentPrice() - (product1.getCurrentPrice()*campaign.getDiscount()/100);
+            product1.setDiscount(100-(newPrice*100/product1.getMrp()));
+
+            PriceHistory priceHistory= new PriceHistory();
+            priceHistory.setProductId(product1.getId());
+            priceHistory.setPrice(product1.getCurrentPrice());
+            priceHistory.setNewPrice(newPrice);
+
+            product1.setCurrentPrice(newPrice);
+
+            campaign.setStatus("Current");
+
+            campaignsRepo.save(campaign);
+            priceHistoryRepo.save(priceHistory);
+            productRepo.save(product1);
+        }
+        return campaignsRepo.findActiveCampaigns(formattedDate);
+    }
+    public void endCampaign(List<Campaigns> endCampaigns){
+        for(Campaigns campaign : endCampaigns){
+            Optional<Product> product = productRepo.findById(campaign.getProductId());
+            Product product1 = product.get();
+
+            Double newPrice = (product1.getCurrentPrice()*100) / (100- campaign.getDiscount());
+            product1.setDiscount(100-(newPrice*100/product1.getMrp()));
+
+            PriceHistory priceHistory= new PriceHistory();
+            priceHistory.setProductId(product1.getId());
+            priceHistory.setPrice(product1.getCurrentPrice());
+            priceHistory.setNewPrice(newPrice);
+
+            product1.setCurrentPrice(newPrice);
+
+            campaign.setStatus("Past");
+
+            campaignsRepo.save(campaign);
+            priceHistoryRepo.save(priceHistory);
+            productRepo.save(product1);
+        }
+    }
 }
