@@ -86,7 +86,6 @@ public class CampaignsService {
                     productRepo.save(product);
 
                 }
-
                 if (current.equals(startDate) || current.after(startDate)){
                     campaigns1.setStatus("Current");
                 }
@@ -95,7 +94,6 @@ public class CampaignsService {
                 }else if(current.before(startDate)){
                     campaigns1.setStatus("UpComing");
                 }
-
                 campaignsRepo.save(campaigns1);
             } else {
                 System.out.println("Id not Found" + productId);
