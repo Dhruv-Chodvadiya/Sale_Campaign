@@ -51,7 +51,6 @@ public class CampaignsService {
             Long productId = productSale.getProductid();
             Optional<Product> productOptional = productRepo.findById(productId);
 
-
             if (productOptional.isPresent()) {
                 Product product = productOptional.get();
                 campaigns1.setProductId(productId);
