@@ -57,7 +57,6 @@ public class CampaignsService {
                 campaigns1.setDiscount(productSale.getDiscount());
                 campaigns1.setOldPrice(product.getCurrentPrice());
 
-
                 if (current.after(startDate) && current.before(endDate)) {
                     Double newPrice = product.getCurrentPrice() - (product.getCurrentPrice() * campaigns1.getDiscount() / 100);
                     product.setDiscount(100 - (newPrice * 100 / product.getMrp()));
