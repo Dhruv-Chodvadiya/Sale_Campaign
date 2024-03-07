@@ -71,7 +71,6 @@ public class CampaignsService {
                     priceHistoryRepo.save(priceHistory);
                     productRepo.save(product);
 
-
                 } else if (current.equals(startDate)) {
                     Double newPrice = product.getCurrentPrice() - (product.getCurrentPrice()*campaigns1.getDiscount()/100);
                     product.setDiscount(100-(newPrice*100/product.getMrp()));
