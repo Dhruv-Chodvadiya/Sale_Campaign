@@ -68,6 +68,7 @@ public class CampaignsService {
 
                     product.setCurrentPrice(newPrice);
 
+
                     priceHistoryRepo.save(priceHistory);
                     productRepo.save(product);
 
