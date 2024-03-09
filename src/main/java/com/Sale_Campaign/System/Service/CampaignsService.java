@@ -75,6 +75,7 @@ public class CampaignsService {
                     Double newPrice = product.getCurrentPrice() - (product.getCurrentPrice()*campaigns1.getDiscount()/100);
                     product.setDiscount(100-(newPrice*100/product.getMrp()));
 
+
                     PriceHistory priceHistory= new PriceHistory();
                     priceHistory.setProductId(product.getId());
                     priceHistory.setPrice(product.getCurrentPrice());
