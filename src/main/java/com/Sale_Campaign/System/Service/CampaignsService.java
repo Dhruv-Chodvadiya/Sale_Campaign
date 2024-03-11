@@ -67,7 +67,6 @@ public class CampaignsService {
                     priceHistory.setPrice(product.getCurrentPrice());
                     priceHistory.setNewPrice(newPrice);
 
-
                     product.setCurrentPrice(newPrice);
 
                     priceHistoryRepo.save(priceHistory);
